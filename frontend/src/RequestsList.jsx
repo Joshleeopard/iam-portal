@@ -37,8 +37,16 @@ function RequestsList({ refresh }) {
         <button onClick={refreshRequests}>Refresh</button>
       </div>
       
-      {requests.length === 0 ? (
-        <p>No access requests yet.</p>
+{requests.length === 0 ? (
+  <div style={{
+    textAlign: 'center',
+    padding: '60px 20px',
+    color: '#6c757d'
+  }}>
+    <div style={{ fontSize: '4rem', marginBottom: '20px' }}>📋</div>
+    <h3 style={{ marginBottom: '10px', color: '#495057' }}>No Access Requests Yet</h3>
+    <p>Submit your first access request using the form on the left.</p>
+  </div>
       ) : (
         <div className="requests-list">
           {requests.map((request) => (

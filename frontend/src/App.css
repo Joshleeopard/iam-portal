@@ -7,7 +7,7 @@
 .App {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 20px;
+  padding: 20px 0;
 }
 
 .app-header {
@@ -28,14 +28,17 @@
 }
 
 .app-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 500px 1fr;
   gap: 30px;
+  align-items: start;
+  padding: 0 20px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .app-container {
     grid-template-columns: 1fr;
   }
@@ -44,36 +47,41 @@
 /* Form Styles */
 .form-container {
   background: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 20px;
 }
 
 .form-container h2 {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   color: #333;
+  font-size: 1.8rem;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .form-group label {
   display: block;
   margin-bottom: 8px;
   color: #555;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   border: 2px solid #e0e0e0;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: border-color 0.3s;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  transition: all 0.3s;
 }
 
 .form-group input:focus,
@@ -81,28 +89,32 @@
 .form-group textarea:focus {
   outline: none;
   border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 button {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: all 0.3s;
+  margin-top: 10px;
 }
 
 button:hover:not(:disabled) {
   transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
 }
 
 button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  transform: none;
 }
 
 .error {
@@ -111,88 +123,124 @@ button:disabled {
   padding: 12px;
   border-radius: 6px;
   margin-bottom: 15px;
+  font-size: 14px;
 }
 
 /* Requests List Styles */
 .requests-container {
   background: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  min-height: 600px;
 }
 
 .requests-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
 }
 
 .requests-header h2 {
   color: #333;
+  font-size: 1.8rem;
 }
 
 .requests-header button {
   width: auto;
-  padding: 8px 16px;
+  padding: 10px 20px;
   font-size: 14px;
+  margin-top: 0;
 }
 
 .requests-list {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
 .request-card {
-  background: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
-  border-left: 4px solid #667eea;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 30px 40px;
+  border-radius: 10px;
+  border-left: 5px solid #667eea;
+  transition: all 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.request-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .request-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 18px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #dee2e6;
 }
 
 .request-header h3 {
   color: #333;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  margin: 0;
 }
 
 .status {
-  padding: 4px 12px;
+  padding: 6px 16px;
   border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .status-pending {
   background: #fff3cd;
   color: #856404;
+  border: 2px solid #ffc107;
 }
 
 .status-approved {
   background: #d4edda;
   color: #155724;
+  border: 2px solid #28a745;
 }
 
 .status-rejected {
   background: #f8d7da;
   color: #721c24;
+  border: 2px solid #dc3545;
 }
 
 .request-details p {
-  margin-bottom: 8px;
-  color: #555;
+  margin-bottom: 14px;
+  color: #495057;
+  font-size: 16px;
+  line-height: 1.6;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 20px;
+}
+
+.request-details strong {
+  color: #333;
+  font-weight: 600;
+  display: inline-block;
+  min-width: 130px;
 }
 
 .timestamp {
   font-size: 0.9rem;
-  color: #888;
-  margin-top: 10px;
+  color: #6c757d;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #dee2e6;
+  font-style: italic;
 }
