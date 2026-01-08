@@ -244,3 +244,39 @@ button:disabled {
   border-top: 1px solid #dee2e6;
   font-style: italic;
 }
+
+/* Request Actions */
+.request-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #dee2e6;
+}
+
+.request-actions button {
+  flex: 1;
+  width: auto;
+  margin-top: 0;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.btn-approve {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+.btn-approve:hover:not(:disabled) {
+  box-shadow: 0 5px 20px rgba(40, 167, 69, 0.4);
+}
+
+.btn-reject {
+  background: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%);
+}
+
+.btn-reject:hover:not(:disabled) {
+  box-shadow: 0 5px 20px rgba(220, 53, 69, 0.4);
+}

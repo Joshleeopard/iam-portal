@@ -5,6 +5,7 @@ function RequestsList({ refresh }) {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [processingId, setProcessingId] = useState(null);
 
   const fetchRequests = async () => {
     try {
@@ -25,6 +26,61 @@ function RequestsList({ refresh }) {
   const refreshRequests = () => {
     setLoading(true);
     fetchRequests();
+  };
+
+  const handleApprove = async (requestId) => {
+    setProcessingId(requestId);
+    try {
+      const approverName = prompt('Enter your name as approver:');
+      if (!approverName) {
+        setProcessingId(null);
+        return;
+      }
+
+      const notes = prompt('Add approval notes (optional):');
+
+      await axios.post(`http://localhost:5000/api/requests/${requestId}/approve`, {
+        approved_by: approverName,
+        notes: notes || ''
+      });
+
+      fetchRequests();
+    } catch (err) {
+      alert(err.response?.data?.error || 'Failed to approve request');
+      console.error('Error:', err);
+    } finally {
+      setProcessingId(null);
+    }
+  };
+
+  const handleReject = async (requestId) => {
+    setProcessingId(requestId);
+    try {
+      const approverName = prompt('Enter your name as approver:');
+      if (!approverName) {
+        setProcessingId(null);
+        return;
+      }
+
+      const notes = prompt('Add rejection reason:');
+      if (!notes) {
+        alert('Rejection reason is required');
+        setProcessingId(null);
+        return;
+      }
+
+      await axios.post(`http://localhost:5000/api/requests/${requestId}/reject`, {
+        approved_by: approverName,
+        notes: notes
+      });
+
+      fetchRequests();
+    } catch (err) {
+      alert(err.response?.data?.error || 'Failed to reject request');
+      console.error('Error:', err);
+    } finally {
+      setProcessingId(null);
+    }
   };
 
   if (loading) return <div className="requests-container"><p>Loading requests...</p></div>;
@@ -66,7 +122,31 @@ function RequestsList({ refresh }) {
                 <p className="timestamp">
                   <strong>Requested:</strong> {new Date(request.created_at).toLocaleString()}
                 </p>
+                {request.approved_by && (
+                  <p><strong>Processed by:</strong> {request.approved_by}</p>
+                )}
+                {request.approval_notes && (
+                  <p><strong>Notes:</strong> {request.approval_notes}</p>
+                )}
               </div>
+              {request.status === 'pending' && (
+                <div className="request-actions">
+                  <button
+                    className="btn-approve"
+                    onClick={() => handleApprove(request.id)}
+                    disabled={processingId === request.id}
+                  >
+                    {processingId === request.id ? 'Processing...' : 'Approve'}
+                  </button>
+                  <button
+                    className="btn-reject"
+                    onClick={() => handleReject(request.id)}
+                    disabled={processingId === request.id}
+                  >
+                    {processingId === request.id ? 'Processing...' : 'Reject'}
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
